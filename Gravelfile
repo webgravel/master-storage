@@ -1,0 +1,6 @@
+name: gravel-master-storage
+requires: gravel-master gravel-common
+
+symlinks:
+- [nodecommand.py, /gravel/pkg/gravel-master/node.d/storage]
+- [operatorcommand.py, /gravel/pkg/gravel-master/operator.d/storage]
