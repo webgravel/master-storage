@@ -23,9 +23,12 @@ class Box(graveldb.Table('boxes', PATH)):
             self.data.active = None
             self.save()
 
-        self.data.active = target.name
-        self.data.ready = False
-        self.save()
+        with self:
+            if self.data.active:
+                raise graveldb.RaceConditionError('somebody took over Box, before we managed to')
+            self.data.active = target.name
+            self.data.ready = False
+            self.save()
         target.call('storage', 'activate', self.name)
         self.data.new = False
         self.data.ready = True
